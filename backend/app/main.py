@@ -4,9 +4,7 @@ from app.routes.integration import router as integration_router
 import os
 
 app = FastAPI()
-app.include_router(integration_router)
 origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,6 +13,8 @@ app.add_middleware(
     allow_methods=["POST, GET"],
     allow_headers=["*"],
 )
+
+app.include_router(integration_router)
 
 
 @app.get("/")
